@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './login.module.css';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -26,7 +27,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input 
@@ -35,6 +36,7 @@ function Login({ onLogin }) {
           value={username} 
           onChange={(e) => setUsername(e.target.value)} 
           required 
+          className={styles.input}
         />
         <input 
           type="password" 
@@ -42,8 +44,9 @@ function Login({ onLogin }) {
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           required 
+          className={styles.input}
         />
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.button}>Login</button>
       </form>
       {error && <p>{error}</p>}
     </div>
