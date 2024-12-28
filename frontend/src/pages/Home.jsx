@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { jsPDF } from 'jspdf';
 
 function Home() {
     const navigate = useNavigate();
@@ -29,8 +30,24 @@ function Home() {
         }
     }
 
+    const handleDownloadPDF = () => {
+      if (!aiResponse) {
+        alert("please enter your resume first");
+        return;
+      }
+
+      const pdf = new jsPDF('p', 'mm', 'letter');
+      pdf.setFont('Arial', 'normal');
+      pdf.setFontSize(12);
+      pdf.text(10, 20, aiResponse);
+      pdf.save('cover_letter.pdf');
+    };
+
     return (
         <div>
+          <div className="logout-container">
+            <button className="logout-button" onClick={handleLogout}>Log Out</button>
+          </div>
           <h2>Generate Cover Letter</h2>
           <textarea
             value={userInput}
@@ -44,12 +61,13 @@ function Home() {
           {aiResponse && (
             <div>
               <h3>Cover Letter:</h3>
-              <p>{aiResponse}</p>
+              <div className="response-box">
+                {aiResponse}
+              </div>
+              <br />
+              <button onClick={handleDownloadPDF}>Download Cover Letter</button>
             </div>
           )}
-          <div>
-            <button onClick={handleLogout}>Log Out</button>
-          </div>
         </div>
       );
     }
