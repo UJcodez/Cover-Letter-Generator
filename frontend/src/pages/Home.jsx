@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
+import Navbar from '../components/Navbar';
+import '../components/Navbar.css'
 
 function Home() {
     const navigate = useNavigate();
@@ -44,10 +46,8 @@ function Home() {
     };
 
     return (
-        <div>
-          <div className="logout-container">
-            <button className="logout-button" onClick={handleLogout}>Log Out</button>
-          </div>
+        <div className='page-content'>
+          <Navbar handleLogout={handleLogout} />
           <h2>Generate Cover Letter</h2>
           <textarea
             value={userInput}

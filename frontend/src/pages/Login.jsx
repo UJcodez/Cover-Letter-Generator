@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
+import '../components/Navbar.css'
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -27,6 +28,7 @@ function Login({ onLogin }) {
   };
 
   return (
+    <div className='page-content'>
     <div className={styles.container}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
@@ -49,6 +51,7 @@ function Login({ onLogin }) {
         <button type="submit" className={styles.button}>Login</button>
       </form>
       {error && <p>{error}</p>}
+    </div>
     </div>
   );
 }

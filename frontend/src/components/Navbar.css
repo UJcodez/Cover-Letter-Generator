@@ -1,4 +1,8 @@
 .navbar {
+    width: 100%; /* Full width */
+    position: fixed; /* Fixed at the top */
+    top: 0; /* Top of the page */
+    left: 0; /* Left edge */
     background-color: #333;
     padding: 1rem;
   }
@@ -21,5 +25,23 @@
   
   .navbar a:hover {
     text-decoration: underline;
+  }
+  
+  .nav-logout {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0;
+  }
+  
+  .nav-logout:hover {
+    text-decoration: underline;
+  }
+
+  .page-content {
+    padding-top: 70px;
   }
   

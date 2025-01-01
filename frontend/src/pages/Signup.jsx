@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../components/Navbar.css'
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -25,6 +26,7 @@ function Signup() {
   };
 
   return (
+    <div className='page-content'>
     <div>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
@@ -45,6 +47,7 @@ function Signup() {
         <button type="submit">Signup</button>
       </form>
       {error && <p>{error}</p>}
+    </div>
     </div>
   );
 }
