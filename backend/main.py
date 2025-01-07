@@ -1,6 +1,6 @@
 from flask import request, jsonify, send_from_directory
 from config import app, db
-from models import User
+from models import User, CoverLetter
 from dotenv import load_dotenv
 import os
 import requests
@@ -56,7 +56,10 @@ def login():
     if user is None or not user.check_password(password):
         return jsonify({"message": "Invalid credentials"}), 401
 
-    return jsonify({"message": "Login successful"}), 200
+    return jsonify({
+        "message": "Login successful",
+        "user_id": user.id
+        }), 200
 
 # method for generating cover letter
 @app.route('/generate-cover-letter', methods=['POST'])
@@ -72,6 +75,38 @@ def generate_cover_letter():
 
     # Return the AI's response as JSON
     return jsonify({'response': response.text})
+
+# Endpoint for saving a cover letter to user account
+@app.route('/save-cover-letter', methods=['POST'])
+def save_cover_letter():
+    data = request.json
+    user_id = data.get('user_id')
+    content = data.get('content')
+
+    if not user_id or not content:
+        return jsonify({"error": "Missing user_id or content"}), 400
+
+    new_cover_letter = CoverLetter(user_id=user_id, content=content)
+    db.session.add(new_cover_letter)
+    db.session.commit()
+
+    return jsonify({"message": "cover letter saved successfully"}), 201
+
+# Endpoint to retrieve cover letters
+@app.route('/get-cover-letters/<int:user_id>', methods=["GET"])
+def get_cover_letters(user_id):
+    cover_letters = CoverLetter.query.filter_by(user_id=user_id).all()
+    results = [
+        {
+            "id": cl.id,
+            "content": cl.content,
+            "created_at": cl.created_at
+        } for cl in cover_letters
+    ]
+
+    return jsonify(results), 200
+
+
 
 # method for serving react routes
 @app.route('/')

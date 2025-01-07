@@ -16,6 +16,9 @@ function Navbar({handleLogout}) {
             <button className="nav-logout" onClick={handleLogout}>Logout</button>
           </li>
           <li>
+            <Link to='/saved-cover-letters'>My Letters</Link>
+          </li>
+          <li>
             <Link to='/login'>Login</Link>
           </li>
           <li>
@@ -34,6 +37,18 @@ function Navbar({handleLogout}) {
           </li>
         </>
       );
+    } else if (location.pathname === '/saved-cover-letters' ) {
+      return (
+        <>
+          <li>
+            <Link to='/home'>Home</Link>
+          </li>
+          <li>
+            <button className="nav-logout" onClick={handleLogout}>Logout</button>
+          </li>
+        </>
+      )
+
     } else {
       return (
         <>

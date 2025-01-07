@@ -45,6 +45,29 @@ function Home() {
       pdf.save('cover_letter.pdf');
     };
 
+    const saveCoverLetter = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/save-cover-letter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: localStorage.getItem('user_id'),
+            content: aiResponse,
+          }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert('Cover Letter Saved Successfully');
+        } else {
+          console.error('Error saving cover letter: ', data.error);
+        }
+
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    };
+
     return (
         <div className='page-content'>
           <Navbar handleLogout={handleLogout} />
@@ -66,6 +89,7 @@ function Home() {
               </div>
               <br />
               <button onClick={handleDownloadPDF}>Download Cover Letter</button>
+              <button onClick={saveCoverLetter}>Save Cover Letter</button>
             </div>
           )}
         </div>

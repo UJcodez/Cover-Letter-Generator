@@ -20,6 +20,9 @@ function Login({ onLogin }) {
     const data = await response.json();
 
     if (response.status === 200) {
+      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('user_id', data.user_id); // Ensure your backend sends `user_id`
+
       onLogin()
       navigate('/home'); // Redirect to home page after successful login
     } else {
